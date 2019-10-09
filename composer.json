@@ -1,0 +1,22 @@
+{
+  "name": "RPG App",
+  "description": "Simple RPG Application",
+  "license": "MIT",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Alex Gomes",
+      "email": "contato@alexwebmaster.com.br"
+    }
+  ],
+  "require": {
+    "php": "7.1.0",
+    "syph-fw/syph-framework":"^1.2"
+  },
+  "require-dev":{
+    "phpunit/phpunit": "^7"
+  },
+  "autoload": {
+    "classmap": [ "app/AppKernel.php" ]
+  }
+}
