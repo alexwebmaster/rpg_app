@@ -51,8 +51,12 @@ class Game
 
     public function roll_initiative()
     {
+        $this->order = array();   
         while ( empty($this->order)) {
-            $iniciatives = $this->get_initiatives();
+            $iniciatives = array(
+                1 => $this->players[1]->initiative(),
+                2 => $this->players[2]->initiative()
+            ); 
 
             if ($iniciatives[1] > $iniciatives[2]) $this->order = array(1,2); //end loop
 
@@ -63,15 +67,48 @@ class Game
         return $this->order;   
     }
 
-    public function get_initiatives()
+    public function run_turn()
     {
-        $iniciatives = array();
-
-        foreach ($this->players as $key => $player)
+        //Check if we have order for security
+        if (empty($this->order))
         {
-            $iniciatives[$key] = $player->initiative();
+            $this->roll_initiative();
         }
 
-        return $iniciatives;        
+        $damage = 0;
+        //set players
+        $player1    = $this->players[$this->order[0]];
+        $player2    = $this->players[$this->order[1]];
+
+        //first player atack the second
+        $attack     = $player1->attack();
+        $defense    = $player2->defense();
+
+        if ($attack > $defense)
+        {
+            $damage = $player1->weapon->cause_damage();
+
+            if ($damage) {
+                $this->players[$this->order[1]]->life -= $damage;
+            }
+        }
+
+        // change positions
+        $this->order = array_reverse($this->order);
+        //update turns
+        $this->rounds++;
+
+        return $this->damage_message($damage);
+    }
+
+    public function damage_message($damage)
+    {
+        if ($damage) {
+           return "O ".$this->players[$this->order[1]]->name .', recebeu '.$damage .' pontos de dano.';
+        } 
+        else 
+        {
+           return "O ".$this->players[$this->order[1]]->name .', conseguiu defender o ataque';
+        }
     }
 }

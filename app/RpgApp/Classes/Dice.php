@@ -3,9 +3,9 @@ namespace RpgApp\Classes;
 
 class Dice
 {
-    var $faces = 6; //set default to 6
+    var $faces;
 
-    function __construct($faces)
+    function __construct($faces= 6)  //set default to 6
     {
         $this->faces = $faces;
     }

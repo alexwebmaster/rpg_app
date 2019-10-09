@@ -9,4 +9,14 @@ class Weapon
     var $attack;
     var $defense;
     var $damage; // use dice
+
+    function __construct()
+    {
+    	$this->damage = new Dice();
+    }
+
+    function cause_damage()
+    {
+    	return $this->damage->roll(); //Return damage dice roll with no aditional
+    }
 }

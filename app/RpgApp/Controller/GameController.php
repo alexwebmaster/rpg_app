@@ -10,37 +10,68 @@ use RpgApp\Classes\Game;
 class GameController extends BaseController
 {
     var $game;
-    var $players = array();
 
     public function create()
     {
         $this->game         = new Game();
-
         $this->game->setup();
         //create game and add players
+        $this->save_game();
 
-        $initiatives = $this->game->roll_initiative();
-
-        //checking if the structure is ok
-        echo '<pre>';
-        var_dump($initiatives);
-        // var_dump($_SESSION['game']);
-        echo '</pre>';
+        return new JsonResponse(['payload' =>  ["message" => "Jogo criado com sucesso."] ]);
     }
 
 
     public function initiative()
     {
-        // $initiatives = $this->game->roll_initiative();
+        //create game order
+        $this->load_game();
+        $order = $this->game->roll_initiative();
+        $this->save_game();
+
+        $message = "A ordem de ataque será ".$this->game->players[$order[0]]->name .', depois '.$this->game->players[$order[1]]->name;
+
+        return new JsonResponse(['payload' =>  ["message" => $message] ]);
     }
 
     public function attack()
     {
         // attack enemy
+        $this->load_game();
+        
+        //create game order
+        $damage_message = $this->game->run_turn();
+        $this->save_game();
+
+        var_dump($this->game);
+
+        return new JsonResponse(['payload' =>  ["message" => $damage_message] ]);
     }
 
     public function state()
     {
         // get game state
+    }
+
+    //Save it for latter in session, by now
+
+    public function save_game()
+    {
+        // TOTO save game data into database and return game_id
+        $_SESSION['game'] = $this->game;
+    }
+
+    public function load_game()
+    {
+        // TOTO game_data sould be changed to game_id 
+        if (isset($_SESSION['game']) && !empty($_SESSION['game']))
+        {
+            $this->game = $_SESSION['game'];
+        } else
+        {
+            $this->game         = new Game();
+            $this->game->setup();
+            $this->save_game();
+        }
     }
 }
