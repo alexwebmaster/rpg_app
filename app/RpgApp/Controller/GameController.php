@@ -38,12 +38,10 @@ class GameController extends BaseController
     {
         // attack enemy
         $this->load_game();
-        
+
         //create game order
         $damage_message = $this->game->run_turn();
         $this->save_game();
-
-        var_dump($this->game);
 
         return new JsonResponse(['payload' =>  ["message" => $damage_message] ]);
     }
@@ -51,6 +49,14 @@ class GameController extends BaseController
     public function state()
     {
         // get game state
+        $this->load_game();
+
+        $result = array();
+        $result['players']  = $this->game->players;
+        $result['rounds']   = $this->game->rounds;
+        $result['winner']   = $this->game->winner;
+
+        return new JsonResponse(['payload' =>  $result ]);
     }
 
     //Save it for latter in session, by now
@@ -67,11 +73,19 @@ class GameController extends BaseController
         if (isset($_SESSION['game']) && !empty($_SESSION['game']))
         {
             $this->game = $_SESSION['game'];
+            $this->check_game();
         } else
         {
             $this->game         = new Game();
             $this->game->setup();
             $this->save_game();
+        }
+    }
+
+    public function check_game()
+    {
+        if ($this->game->winner) {
+            return new JsonResponse(['payload' =>  ["message" => 'Partida encerrada. '.$this->game->winner.' foi o vencedor.'] ]);
         }
     }
 }

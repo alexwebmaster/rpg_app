@@ -77,28 +77,35 @@ class Game
 
         $damage = 0;
         //set players
-        $player1    = $this->players[$this->order[0]];
-        $player2    = $this->players[$this->order[1]];
+        $atacker    = $this->players[$this->order[0]];
+        $defenser   = $this->players[$this->order[1]];
 
         //first player atack the second
-        $attack     = $player1->attack();
-        $defense    = $player2->defense();
+        $attack     = $atacker->attack();
+        $defense    = $defenser->defense();
 
         if ($attack > $defense)
         {
-            $damage = $player1->weapon->cause_damage();
+            $damage = $atacker->weapon->cause_damage();
 
             if ($damage) {
-                $this->players[$this->order[1]]->life -= $damage;
+                $defenser->life -= $damage;
+            }
+
+            if ($defenser->life <= 0) {
+                //lets set a winner
+                $this->winner = $atacker->name;
             }
         }
+
+        $message = $this->damage_message($damage);
 
         // change positions
         $this->order = array_reverse($this->order);
         //update turns
         $this->rounds++;
 
-        return $this->damage_message($damage);
+        return $message;
     }
 
     public function damage_message($damage)
