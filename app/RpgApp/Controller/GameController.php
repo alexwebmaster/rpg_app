@@ -3,32 +3,35 @@ namespace RpgApp\Controller;
 
 use Syph\Controller\BaseController;
 use Syph\Http\Response\JsonResponse;
+use RpgApp\Classes\Game;
 
 // BACKEND FUNCTIONS
 
 class GameController extends BaseController
 {
-    var $game_id;
-    var $rounds;
-    var $winner;
+    var $game;
     var $players = array();
-
-    function __construct()
-    {
-        parent::__construct();
-        $this->game_id      = session_id();
-    }
 
     public function create()
     {
-        $this->rounds       = 0;
-        $this->winner       = false;
-        //create players
+        $this->game         = new Game();
+
+        $this->game->setup();
+        //create game and add players
+
+        $initiatives = $this->game->roll_initiative();
+
+        //checking if the structure is ok
+        echo '<pre>';
+        var_dump($initiatives);
+        // var_dump($_SESSION['game']);
+        echo '</pre>';
     }
+
 
     public function initiative()
     {
-        // do something
+        // $initiatives = $this->game->roll_initiative();
     }
 
     public function attack()
