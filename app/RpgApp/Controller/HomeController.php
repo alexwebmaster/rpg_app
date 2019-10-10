@@ -8,11 +8,11 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        echo  "Describe the Game";
+        return View::render($this->createView('RpgApp:example/index.html.twig'));
     }
 
     public function game()
     {
-        echo  "Show The Game";
+        return View::render($this->createView('RpgApp:example/game.html.twig'));
     }
 }

@@ -59,6 +59,15 @@ class GameController extends BaseController
         return new JsonResponse(['payload' =>  $result ]);
     }
 
+    public function attacker()
+    {
+        // get game state
+        $this->load_game();
+        $attacker  = $this->game->players[$this->game->order[0]];
+        $defenser  = $this->game->players[$this->game->order[1]];
+        return new JsonResponse(['payload' =>  ["message" => 'O '.$attacker->name. ' atacará o '.$defenser->name] ]);
+    }
+
     //Save it for latter in session, by now
 
     public function save_game()

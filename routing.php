@@ -16,5 +16,7 @@ $router->addGet(['path'=>'/create','name'=>'create' ], 'RpgApp:GameController:cr
 $router->addGet(['path'=>'/initiative','name'=>'initiative' ], 'RpgApp:GameController:initiative');
 //attack enemy
 $router->addGet(['path'=>'/attack','name'=>'attack' ], 'RpgApp:GameController:attack');
+//get next attacker
+$router->addGet(['path'=>'/attacker','name'=>'attacker' ], 'RpgApp:GameController:attacker');
 //get game state
 $router->addGet(['path'=>'/state','name'=>'state' ], 'RpgApp:GameController:state');

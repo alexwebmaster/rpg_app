@@ -105,6 +105,12 @@ class Game
         //update turns
         $this->rounds++;
 
+        //reset order in turns of 2
+        if($this->rounds % 2 == 0){
+            $this->order = array();
+            $this->roll_initiative();
+        }
+
         return $message;
     }
 

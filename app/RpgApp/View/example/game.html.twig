@@ -1,0 +1,73 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Bem vindo uma breve batalha de RPG {% endblock %}
+{% block body %}
+    <div class="loader-wrapper">
+        <div id="loader-image"></div>
+    </div>
+    <!-- **Wrapper** -->
+    <div class="wrapper">
+        <div class="inner-wrapper">
+
+            <!-- **Main - Starts** -->
+            <div id="main">
+                <div class="blank-template-container">
+                    <div class="blank-template">
+                        <div class="blank-template-wrapper">
+                            <div class="container">
+                                <!-- Primary Starts -->
+                                <section id="primary" class="content-full-width text-center">
+
+                                    <table class="table">
+                                        <tr>
+                                            <td class="col-2 col-md-4" id="player1">
+                                                <h4 class="name"></h4>
+                                                <p>pontos de Vida:<strong class="life"></strong></p>
+                                                <p>Força:<strong class="strength"></strong></p>
+                                                <p>Agilidade:<strong class="agility"></strong></p>
+                                                <div id="weapon">
+                                                    <h4 class="weapon_name"></h4>
+                                                    <p>Ataque:<strong class="attack"></strong></p>
+                                                    <p>Defesa:<strong class="defense"></strong></p>
+                                                    <p>Dano:<strong class="damage"></strong></p>
+                                                </p>                                                
+                                            </td>
+                                            <td class="col-2 col-md-4">
+                                                <h4>Log</h4>
+                                                <div id="log_container" style="height: 300px;max-height: 300px; overflow-y: scroll; font-size: 12px;">
+                                                </div>                                                
+                                            </td>
+                                            <td class="col-2 col-md-4" id="player2">
+                                                <h4 class="name"></h4>
+                                                <p>pontos de Vida:<strong class="life"></strong></p>
+                                                <p>Força:<strong class="strength"></strong></p>
+                                                <p>Agilidade:<strong class="agility"></strong></p>
+                                                <div id="weapon">
+                                                    <h4 class="weapon_name"></h4>
+                                                    <p>Ataque:<strong class="attack"></strong></p>
+                                                    <p>Defesa:<strong class="defense"></strong></p>
+                                                    <p>Dano:<strong class="damage"></strong></p>
+                                                </p>                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><button class="btn btn-warning" id="restart" > Reiniciar Batalha</button></td>
+                                            <td>
+                                                <button class="btn btn-success" id="next_turn" > Atacar</button>
+                                            </td>
+                                            <td>
+                                                <a href="/" class="btn btn-default"> Sair </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- **Main - Ends** -->
+
+        </div><!-- **inner-wrapper - End** -->
+
+    </div><!-- **Wrapper - End** -->
+{% endblock %}
