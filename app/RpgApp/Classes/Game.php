@@ -86,7 +86,7 @@ class Game
 
         if ($attack > $defense)
         {
-            $damage = $atacker->weapon->cause_damage();
+            $damage = $atacker->strength + $atacker->weapon->cause_damage();
 
             if ($damage) {
                 $defenser->life -= $damage;
