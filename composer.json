@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "7.1.0",
+    "php": "^7.1",
     "syph-fw/syph-framework":"^1.2"
   },
   "require-dev":{
